@@ -10,7 +10,7 @@ The project will incorporate:
 - the fraction library from http://www.xarg.org/2014/03/precise-calculations-in-javascript/
 - the MathJax library for pretty printing https://www.mathjax.org/
 - The Math.js library from https://github.com/josdejong/mathjs
-- <Canvas> for graphing of functions
+- &lt;Canvas&gt; for graphing of functions
 
 Input will be passed from a text box to both MathJax for pretty output and to the Math.js library for evaluation.
 Input will update real time so the user gets instant feedback about what they are typing in.
