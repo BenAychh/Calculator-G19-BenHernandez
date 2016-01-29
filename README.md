@@ -21,7 +21,7 @@ Input will update real time so the user gets instant feedback about what they ar
 - Graph window automatically resizes for function input.
 - Tables of the same above functions.
 - Ability to define a function for use later
-- Ability to user functions in calculation (i.e. 10 * f(5))
+- Ability to use functions in calculation (i.e. 10 * f(5))
 - Pretty print so user is sure they are typing in the equation correctly.
 - Ability to handle trig functions in both degrees and radians.
 - Formatting of output so user sees both (sqrt(2)/2 and 0.70710678118)
