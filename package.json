@@ -1,0 +1,25 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "This is a calculator. Hopefully there is more to describe as the year progresses.",
+  "main": "calculator.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenAychh/Calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenAychh/Calculator/issues"
+  },
+  "homepage": "https://github.com/BenAychh/Calculator#readme",
+  "devDependencies": {
+    "chai": "^3.4.1"
+  }
+}
