@@ -38,6 +38,11 @@ function Graphing(pCanvas) {
     }
   }
   this.addLine = function(name, equation, color) {
+    if (lines[name]) {
+      var context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      drawGrid();
+    }
     equation = equation.replace(/\s/, '');
     lines[name] = {equation: equation, color: color};
     graphLines();
