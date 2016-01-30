@@ -20,7 +20,6 @@ var colors = ['#0000ff', '#009900', '#990099', '#9fa700', '#e8184b'];
 function addLine(name, equation, color) {
   grapher.addLine(name, equation, color);
   infoer.addLine(name, equation, color);
-  return
 }
 
 /**
@@ -50,6 +49,11 @@ function removeLine(expression) {
 function calculate() {
   // Grab the input.
   var input = document.getElementById('expression');
+  input.disabled = true;
+  UpdateInput.Update();
+  var problemNumber = input.getAttribute('data-problemnumber');
+  problemNumber++;
+  input.setAttribute('data-problemnumber', problemNumber);
   var inputValue = clean(input.value);
   // We are not defining a function so we need to convert things like f(2) to
   // their numerical value.
@@ -63,13 +67,15 @@ function calculate() {
   var special = specialProcessor(inputValue);
   // For the MathJax display.
   var precalculated = document.getElementById('precalculated');
-  var calculated = document.getElementById('calculated');
+  var calculateds = document.getElementsByClassName('calculatedResult');
+  var calculated = calculateds[calculateds.length - 1];
   // Nothing special was done, this just needs to be calculated.
   if (special.length === 0) {
     // Evaluate the expression.
     var simpleEvaluation = math.eval(inputValue);
     // Create a beauty object to process the output.
     var beauty = new Beautify(simpleEvaluation);
+    calculated.setAttribute('data-input', beauty.toString());
     // This means that there is a way to beautify the number.
     if (math.abs(beauty.toString() - simpleEvaluation) > 0.00000000001 ||
         isNaN(math.abs(beauty.toString() - simpleEvaluation))) {
@@ -80,17 +86,47 @@ function calculate() {
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'precalculated']);
       // After MathJax processing, display the beautified math.
       MathJax.Hub.Queue(function() {
-        calculated.innerHTML = precalculated.innerHTML;
+        setCalculation(calculated, precalculated.innerHTML);
       });
     } else {
       // Number can't be beautified, just display it.
-      calculated.innerHTML = beauty.toString();
+      setCalculation(calculated, beauty.toString());
     }
   } else {
     // Something special happen, display what we did.
-    calculated.innerHTML = special;
+    setCalculation(calculated, special);
   }
+}
+function setCalculation(div, calculationResults) {
+  if (UpdateInput.Running()) {
+    setTimeout(function() {
+      div.innerHTML = calculationResults;
+      createNewLine()
+    }, 150);
+  } else {
+    div.innerHTML = calculationResults;
+    createNewLine();
+  }
+}
+function createNewLine() {
+  var input = document.getElementById('expression');
+  var previews = document.getElementsByClassName("inputResult");
+  var preview = previews[previews.length - 1];
+  var calcHistory = document.getElementById('calculationHistory');
+  var newOutputWrapper = document.createElement('div');
+  newOutputWrapper.className = 'outputWrapper';
+  var newInput = document.createElement('div');
+  newInput.className = 'inputResult output outputBase';
+  newInput.setAttribute('onclick', 'setInput(this)');
+  newOutputWrapper.appendChild(newInput);
+  var newCalculatedResult = document.createElement('div');
+  newCalculatedResult.className = 'calculatedResult outputBase';
+  newCalculatedResult.setAttribute('onclick', 'setInput(this)');
+  newOutputWrapper.appendChild(newCalculatedResult);
+  calcHistory.appendChild(newOutputWrapper);
+  calcHistory.scrollTop = calcHistory.scrollHeight;
   // Put the focus back on the input bar.
+  input.disabled = false;
   input.select();
   input.focus();
 }
@@ -166,7 +202,18 @@ function evaluateFunctionsAtSpecificValues(expression) {
   // Put it all together.
   return beginning + evaluated + end;
 }
-
+function setInput(caller) {
+  var expressionToType = caller.getAttribute('data-input');
+  var input = document.getElementById('expression');
+  if (expressionToType) {
+    var inputText = input.value;
+    var startIndex = input.SelectionStart;
+    var endIndex = input.SelectionEnd;
+    var tempText = inputText + expressionToType;
+    input.value = tempText;
+  }
+  input.focus();
+}
 /**
  * replaceFunctions - This replaces the function name with the actual function
  * expression so if f(x):=2x then f(x) becomes 2x
@@ -221,4 +268,3 @@ function specialProcessor(expression) {
   }
   return '';
 }
-//module.exports = calculate;
