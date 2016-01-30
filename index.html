@@ -18,12 +18,16 @@
       <canvas id="graphing" width="400" height="400"></canvas>
       <canvas id="info" width="400" height="400"></canvas>
     </div>
-    <form onsubmit="calculate()" action="#">
-      <div id="result" class="output"></div>
+    <div id="calculationHistory">
       <div id="buffer" class="output" style="visibility: hidden; position: absolute;"></div>
-      <input type="text" placeholder="equation" id="expression" onkeyup="UpdateInput.Update()" data-repaint="true">
-      <div id="precalculated" class="output" style="visibility: hidden; position: absolute;"></div>
-      <div id="calculated" class="output"></div>
+      <div id="precalculated" class="calculatedResult" style="visibility: hidden; position: absolute;"></div>
+      <div class="outputWrapper">
+        <div class="inputResult output outputBase" onclick="setInput(this)"></div>
+        <div class="calculatedResult outputBase" onclick="setInput(this)"></div>
+      </div>
+    </div>
+    <form onsubmit="setTimeout(calculate(), 150)" action="#">
+      <input type="text" placeholder="equation" id="expression" onkeyup="UpdateInput.Update()" data-problemnumber="1">
     </form>
     <div id="functions">
 

@@ -4,7 +4,7 @@ canvas {
 }
 form {
   position: absolute;
-  top: 10px;
+  top: 400px;
   left: 410px;
 }
 form input[type='text'] {
@@ -13,13 +13,24 @@ form input[type='text'] {
   display: block;
   margin: 10px;
 }
-form .output {
+.outputWrapper {
   width: 400px;
-  height: 100px;
+  height: 120px;
+  border-top: 1px dashed black;
+  font-size: 1em;
+}
+.outputBase {
+  width: 100%;
+  height: 50%;
   padding: 10px;
-  border: 1px solid black;
-  text-align: center;
-  font-size: 24px;
+  box-sizing: border-box;
+}
+.output {
+  text-align: left;
+}
+.calculatedResult {
+  text-align: right;
+  padding-right: 20px;
 }
 .graphCanvases {
   position: relative;
@@ -27,4 +38,11 @@ form .output {
 #lines {
   position: relative;
   left: 410px;
+}
+#calculationHistory {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  left: 410px;
+  overflow: scroll;
 }
