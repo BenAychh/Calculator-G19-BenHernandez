@@ -24,9 +24,11 @@ form input[type='text'] {
   height: 50%;
   padding: 10px;
   box-sizing: border-box;
+  cursor:pointer;
 }
 .output {
   text-align: left;
+  cursor:pointer;
 }
 .calculatedResult {
   text-align: right;
