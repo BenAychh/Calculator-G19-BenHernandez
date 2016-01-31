@@ -27,6 +27,13 @@ function Info(pCanvas) {
   canvas.addEventListener('mousemove', function(e) {
     info.mouseLocation(e.clientX);
   });
+  this.setBounds = function(arrayOfValues) {
+    xmin = Number(arrayOfValues[0]);
+    xmax = Number(arrayOfValues[1]);
+    ymin = Number(arrayOfValues[3]);
+    ymax = Number(arrayOfValues[4]);
+    clearText();
+  };
   function clearText() {
     var lineKeys = Object.keys(lines);
     var context = canvas.getContext('2d');

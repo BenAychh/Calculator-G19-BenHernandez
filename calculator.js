@@ -9,6 +9,14 @@ var functions = {};
 // Colors in order of graphing sequence
 var colors = ['#0000ff', '#009900', '#990099', '#9fa700', '#e8184b'];
 
+function graphbounds(expression) {
+  var subString = expression.substring(12, expression.length - 1).split(',');
+  grapher.setBounds(subString);
+  infoer.setBounds(subString);
+  return 'left: ' + subString[0] + ', right: ' + subString[1] +
+    ', xScale: ' + subString[2] + ', bottom: ' + subString[3] +
+    ', top: ' + subString[4] + ', yScale: ' + subString[5];
+}
 /**
  * addLine - Much simpler version of the above where the values are already
  * split.
@@ -252,7 +260,9 @@ function replaceFunctions(input) {
  */
 function specialProcessor(expression) {
   // If the user is removing a function.
-  if (expression.indexOf('removegraph') !== -1) {
+  if (expression.indexOf('graphbounds') !== -1) {
+    return 'window changed<br>' + graphbounds(expression);
+  } else if (expression.indexOf('removegraph') !== -1) {
     return 'removed: ' + removeLine(expression);
   // If the user is defining a function.
   } else if (expression.indexOf(':=') !== -1) {
