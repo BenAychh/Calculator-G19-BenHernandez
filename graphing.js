@@ -21,7 +21,6 @@ function Graphing(pCanvas) {
       textV = vzero /* font */ - 2;
     }
     var hzero = convertVNumberToPixel(0);
-    console.log(hzero);
     var textH;
     if (hzero) {
       textH = hzero - 2;
