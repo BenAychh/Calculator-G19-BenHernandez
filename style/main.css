@@ -62,12 +62,3 @@ form input[type='text'] {
   left: 410px;
   overflow: scroll;
 }
-.button {
-  display: inline;
-  float: left;
-  width: 50px;
-  height: 25px;
-  border: 1px solid black;
-  text-align: center;
-  margin: 5px;
-}
