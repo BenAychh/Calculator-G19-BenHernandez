@@ -47,7 +47,7 @@ var UpdateInput = {
   DrawMath: function () {
     this.preview.innerHTML = this.buffer.innerHTML;
     var theInput = this.oldtext.replace('`', '');
-    this.preview.setAttribute('data-input', '(' + this.oldTextClean.replace('‸', '') + ')');
+    this.preview.setAttribute('data-input', this.oldTextClean.replace('‸', ''));
     this.mjRunning = false;
     this.timeoutRunning = false;
   },
