@@ -9,49 +9,10 @@ function Graphing(pCanvas) {
   var vgrid = 1;
   var lines = {};
   drawGrid();
-  function drawGrid() {
-    var context = canvas.getContext('2d');
-    context.strokeStyle = '#d0d0d0';
-    context.fillStyle = '#000000';
-    context.lineWidth = 1;
-    var vzero = convertHNumberToPixel(0);
-    var textV = vzero;
-    context.font = "14px Calibri";
-    if (vzero) {
-      textV = vzero /* font */ - 2;
-    }
-    var hzero = convertVNumberToPixel(0);
-    var textH;
-    if (hzero) {
-      textH = hzero - 2;
-    }
-    for (i = xmin + hgrid; i < xmax; i += hgrid) {
-      var xNumber = convertHNumberToPixel(i);
-      context.beginPath();
-      context.moveTo(xNumber,0);
-      context.lineTo(xNumber, canvas.height);
-      context.stroke();
-      var width = context.measureText(i).width;
-      context.fillText(i, xNumber - width / 2, textH + 14 + 3);
-    }
-    for (i = ymin + vgrid; i < ymax; i += vgrid) {
-      var yNumber = convertVNumberToPixel(i);
-      context.beginPath();
-      context.moveTo(0,yNumber);
-      context.lineTo(canvas.width, yNumber);
-      context.stroke();
-      var textWidth = context.measureText(i).width;
-      context.fillText(i, textV - textWidth, yNumber + 5);
-    }
-    if (convertHNumberToPixel(0)) {
-      context.fillStyle = '#000000';
-      context.fillRect(convertHNumberToPixel(0) - 1, 0, 3, canvas.height);
-    }
-    if (convertVNumberToPixel(0)) {
-      var vzero = convertVNumberToPixel(0);
-      context.fillStyle = '#000000';
-      context.fillRect(0, vzero - 1, canvas.width, 3);
-    }
+  this.repaint = function () {
+    clearGraph();
+    drawGrid();
+    graphLines();
   }
   this.addLine = function(name, equation, color) {
     if (lines[name]) {
@@ -108,6 +69,50 @@ function Graphing(pCanvas) {
       }
       context.stroke();
     });
+  }
+  function drawGrid() {
+    var context = canvas.getContext('2d');
+    context.strokeStyle = '#d0d0d0';
+    context.fillStyle = '#000000';
+    context.lineWidth = 1;
+    var vzero = convertHNumberToPixel(0);
+    var textV = vzero;
+    context.font = "14px Calibri";
+    if (vzero) {
+      textV = vzero /* font */ - 2;
+    }
+    var hzero = convertVNumberToPixel(0);
+    var textH;
+    if (hzero) {
+      textH = hzero - 2;
+    }
+    for (i = xmin + hgrid; i < xmax; i += hgrid) {
+      var xNumber = convertHNumberToPixel(i);
+      context.beginPath();
+      context.moveTo(xNumber,0);
+      context.lineTo(xNumber, canvas.height);
+      context.stroke();
+      var width = context.measureText(i).width;
+      context.fillText(i, xNumber - width / 2, textH + 14 + 3);
+    }
+    for (i = ymin + vgrid; i < ymax; i += vgrid) {
+      var yNumber = convertVNumberToPixel(i);
+      context.beginPath();
+      context.moveTo(0,yNumber);
+      context.lineTo(canvas.width, yNumber);
+      context.stroke();
+      var textWidth = context.measureText(i).width;
+      context.fillText(i, textV - textWidth, yNumber + 5);
+    }
+    if (convertHNumberToPixel(0)) {
+      context.fillStyle = '#000000';
+      context.fillRect(convertHNumberToPixel(0) - 1, 0, 3, canvas.height);
+    }
+    if (convertVNumberToPixel(0)) {
+      var vzero = convertVNumberToPixel(0);
+      context.fillStyle = '#000000';
+      context.fillRect(0, vzero - 1, canvas.width, 3);
+    }
   }
   function convertHNumberToPixel(number) {
     return Math.round((number - xmin) / (xmax - xmin) * canvas.width);

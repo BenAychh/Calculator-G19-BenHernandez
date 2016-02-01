@@ -17,7 +17,8 @@ function Info(pCanvas) {
     delete lines[name];
     delete balls[name];
   };
-  this.mouseLocation = function(x) {
+  this.mouseLocation = function(xPage) {
+    var x = xPage - 300;
     clearText();
     clearBalls();
     setBalls(x);

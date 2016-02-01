@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax Dynamic Math Test Page with ASCIIMath Input</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+
+<style>
+input {margin-top: .7em}
+.box {position: relative}
+.container {
+  border: 1px solid black;
+  padding: 10px;
+}
+</style>
+</head>
+<body>
+
+<script>
+  //
+  //  Use a closure to hide the local variables from the
+  //  global namespace
+  //
+  (function () {
+    var slides = 1;                 // number of slides
+    var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
+    var math = [], box = [];
+
+    //
+    //  Hide and show the box (so it doesn't flicker as much)
+    //
+    var HIDEBOX = function (i) {box[i].style.visibility = "hidden"}
+    var SHOWBOX = function (i) {box[i].style.visibility = "visible"}
+
+    //
+    //  Get the element jax when MathJax has produced it.
+    //
+    QUEUE.Push(function () {
+      for (var i = 1; i <= slides; i++) {
+        math[i] = MathJax.Hub.getAllJax("MathOutput"+i)[0];
+        box[i]  = document.getElementById("box"+i);
+        SHOWBOX(i); // box is initially hidden so the braces don't show
+      }
+    });
+
+    //
+    //  The onchange event handler that typesets the math entered
+    //  by the user.  Hide the box, then typeset, then show it again
+    //  so we don't see a flash as the math is cleared and replaced.
+    //
+    window.UpdateMath = function (i,amath) {
+      QUEUE.Push([HIDEBOX,i],["Text",math[i],amath],[SHOWBOX,i]);
+    }
+  })();
+</script>
+
+<p>
+The page can include \(\rm\TeX\) code as well as ASCIIMath: `root(3)(x+1)`.
+</p>
+
+<div class="container">
+<p>
+Type some ASCIIMath code and press RETURN:<br />
+<input id="MathInput1" size="80" onkeyup="UpdateMath(1,this.value)" />
+</p>
+
+<p>You typed:</p>
+<div class="box" id="box1" style="visibility:hidden">
+<div id="MathOutput1" class="output">` `</div>
+</div>
+</div>
+
+</body>
+</html>

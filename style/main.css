@@ -1,8 +1,12 @@
-
+body {
+  margin: 0;
+}
 canvas {
   position: absolute;
+  top: 0;
 }
 form {
+  display: none;
   position: absolute;
   top: 400px;
   left: 410px;
@@ -13,11 +17,14 @@ form input[type='text'] {
   display: block;
   margin: 10px;
 }
+.active {
+  background-color: rgb(89, 251, 115);
+}
 .outputWrapper {
-  width: 400px;
+  width: 290px;
   height: 120px;
   border-top: 1px dashed black;
-  font-size: 1em;
+  font-size: 20px;
 }
 .outputBase {
   width: 100%;
@@ -34,7 +41,8 @@ form input[type='text'] {
   padding-right: 20px;
 }
 .graphCanvases {
-  position: relative;
+  position: absolute;
+  left: 300px;
 }
 .button {
   display: inline;
@@ -45,9 +53,20 @@ form input[type='text'] {
   text-align: center;
   margin: 5px;
 }
+.buttonDivider {
+  width: 200px;
+  height: 100%;
+  overflow: scroll;
+  float: left;
+}
+.tableRow {
+  height: 50px;
+}
 #buttons {
-  left: 820px;
-  width: 250px;
+  box-sizing: border-box;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
   border: 1px solid black;
   position: absolute;
 }
@@ -56,9 +75,15 @@ form input[type='text'] {
   left: 410px;
 }
 #calculationHistory {
+  padding: 0;
+
+  background-color: rgb(212, 231, 252);
+  border: 1px solid rgb(26, 91, 217);
+  box-sizing: border-box;
   position: absolute;
-  width: 400px;
-  height: 300px;
-  left: 410px;
+  width: 300px;
+  /*height: 500px;*/
+  left: 0px;
   overflow: scroll;
+  font-size: 16px;
 }

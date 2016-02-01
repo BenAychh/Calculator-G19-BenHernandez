@@ -2,25 +2,68 @@ var listener = new window.keypress.Listener();
 var buttons = document.getElementsByClassName('button');
 for (var i = 0; i < buttons.length; i++) {
   buttons[i].onclick = function() {
-    buttonClicked(this.getAttribute('data-value'));
+    var data = this.getAttribute('data-value');
+    if (data.indexOf('special(') === -1 ) {
+      buttonClicked(this.getAttribute('data-value'));
+    } else {
+      var parameters = data.substring(7, data.length).split(',');
+      var buttonCommand = parameters[1].replace(')', '');
+      buttonClicked(buttonCommand);
+    }
+    var tempButton = this;
+    addClass(this, "active");
+    setTimeout(function() {
+      removeClass(tempButton, "active");
+    }, 100);
   };
   data = buttons[i].getAttribute('data-value');
-  addKeyPress(data);
-
+  addKeyPress(data, buttons[i]);
 }
-function addKeyPress(data) {
+function addKeyPress(data, button) {
   if (data.length === 1) {
+    //console.log("length 1: ", data);
     listener.simple_combo(data, function() {
       buttonClicked(data);
+      addClass(button, "active");
+      setTimeout(function() {
+        removeClass(button, "active");
+      }, 100);
     });
   } else if(data.indexOf('operation') !== -1) {
+    //console.log("operation: ", data);
     listener.simple_combo(data.substring(9, 10), function() {
+      addClass(button, "active");
+      setTimeout(function() {
+        removeClass(button, "active");
+      }, 100);
       buttonClicked(data);
+
     });
+  } else if (data.indexOf('special(') !== -1) {
+    (function() {
+      //console.log("special: ", data);
+      var parameters = data.substring(7, data.length).split(',');
+      var typeCommand = parameters[0].substring(1, parameters[0].length);
+      var buttonCommand = parameters[1].substring(0, parameters[1].length - 1);
+      // console.log("type: ", typeCommand);
+      // console.log("button: ", buttonCommand);
+      listener.simple_combo(typeCommand, function() {
+        addClass(button, "active");
+        setTimeout(function() {
+          removeClass(button, "active");
+        }, 100);
+        buttonClicked(buttonCommand);
+      });
+    })();
   } else if (data.indexOf('‸') !== -1) {
+    //console.log("caret: ", data);
     var command = data.split('(')[0].split('');
     var spacedCommand = command.join(' ');
     listener.sequence_combo(spacedCommand, function() {
+      addClass(button, "active");
+      setTimeout(function() {
+        removeClass(button, "active");
+      }, 100);
       buttonClicked(data);
     });
   }
@@ -69,7 +112,7 @@ function deleteStuff(input, caret) {
   var inputValue = input.value;
   var caretIndex = inputValue.indexOf(caret);
   inputValue = inputValue.replace(caret, '');
-  if (inputValue.charAt(caretIndex - 1) === '(') {
+  if (inputValue[caretIndex - 1] === '(' || !!inputValue.match(/[a-z]/i)) {
     var movement = -1;
     regex = /[a-z]/i;
     while (shouldSkip(inputValue.charAt(caretIndex + movement - 1), regex)) {
@@ -108,8 +151,8 @@ function performOperation(input, data, caret) {
   } else {
     var calculatedResults = document.getElementsByClassName('calculatedResult');
     var calculatedResult = calculatedResults[calculatedResults.length - 2];
-    appendInput(input, calculatedResult.getAttribute('data-input'), caret);
-    appendInput(input, data.substring(9, 10), caret)
+    appendInput(input, '(' + calculatedResult.getAttribute('data-input') + ')', caret);
+    appendInput(input, data.substring(9, 10), caret);
   }
 }
 function appendInput(input, data, caret) {
@@ -126,21 +169,23 @@ function appendInput(input, data, caret) {
 function shouldSkip(str, regex) {
   return str.length === 1 && !!str.match(regex);
 }
-listener.simple_combo('enter', function() {
-  buttonClicked('submit');
-});
-listener.simple_combo('left', function() {
-  buttonClicked('move-left');
-});
-listener.simple_combo('right', function() {
-  buttonClicked('move-right');
-});
-listener.simple_combo('backspace', function() {
-  buttonClicked('backspace');
-});
-listener.simple_combo('(', function() {
-  buttonClicked('(‸)');
-});
-listener.simple_combo('p i', function() {
-  buttonClicked('pi');
-});
+function hasClass(el, className) {
+  if (el.classList)
+    return el.classList.contains(className);
+  else
+    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+}
+function addClass(el, className) {
+  if (el.classList)
+    el.classList.add(className);
+  else if (!hasClass(el, className)) el.className += " " + className;
+}
+
+function removeClass(el, className) {
+  if (el.classList)
+    el.classList.remove(className);
+  else if (hasClass(el, className)) {
+    var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+    el.className=el.className.replace(reg, ' ');
+  }
+}
