@@ -11,6 +11,9 @@
       });
     </script>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+    </script>
     <script src="beautifyinput.js"></script>
   </head>
   <body>
@@ -27,7 +30,7 @@
       </div>
     </div>
     <form onsubmit="setTimeout(calculate(), 150)" action="#">
-      <input type="text" placeholder="equation" id="expression" onkeyup="UpdateInput.Update()" data-problemnumber="1">
+      <input type="text" value="&#8248;" placeholder="equation" id="expression" onkeyup="UpdateInput.Update()" disabled>
     </form>
     <div id="buttons">
       <div class="button" data-value="0">
@@ -60,23 +63,77 @@
       <div class="button" data-value="9">
         9
       </div>
-      <div class="button" data-value="+">
+      <div class="button" data-value="operation+">
         +
       </div>
-      <div class="button" data-value="-">
+      <div class="button" data-value="operation-">
         -
       </div>
-      <div class="button" data-value="*">
+      <div class="button" data-value="operation*">
         *
       </div>
-      <div class="button" data-value="/">
+      <div class="button" data-value="operation/">
         /
       </div>
-      <div class="button" data-value="sin(,)">
+      <div class="button" data-value="sqrt(&#8248;)">
+        sqrt
+      </div>
+      <div class="button" data-value="operation^">
+        ^
+      </div>
+      <div class="button" data-value="asin(&#8248;)">
+        arcsin
+      </div>
+      <div class="button" data-value="acos(&#8248;)">
+        arccos
+      </div>
+      <div class="button" data-value="atan(&#8248;)">
+        atan
+      </div>
+      <div class="button" data-value="sin(&#8248;)">
         sin
       </div>
-      <div class="button" data-value="sqrt(,)">
-        sqrt
+      <div class="button" data-value="cos(&#8248;)">
+        cos
+      </div>
+      <div class="button" data-value="tan(&#8248;)">
+        tan
+      </div>
+      <div class="button" data-value="csc(&#8248;)">
+        csc
+      </div>
+      <div class="button" data-value="sec(&#8248;)">
+        sec
+      </div>
+      <div class="button" data-value="cot(&#8248;)">
+        cot
+      </div>
+      <div class="button" data-value="acsc(&#8248;)">
+        arcsin
+      </div>
+      <div class="button" data-value="acos(&#8248;)">
+        arccos
+      </div>
+      <div class="button" data-value="atan(#)">
+        atan
+      </div>
+      <div class="button" data-value="pi&#8248;">
+        &pi;
+      </div>
+      <div class="button" data-value="(&#8248;)">
+        (
+      </div>
+      <div class="button" data-value=")">
+        )
+      </div>
+      <div class="button" data-value="move-left">
+        left
+      </div>
+      <div class="button" data-value="move-right">
+        right
+      </div>
+      <div class="button" data-value="backspace">
+        bkspc
       </div>
       <div class="button" data-value="submit">
         =
@@ -85,7 +142,9 @@
 
     <script>
       UpdateInput.Start();
+      UpdateInput.Update();
     </script>
+    <script src="keypress-2.1.3.min.js"></script>
     <script src="math.min.js"></script>
     <script src="graphing.js"></script>
     <script src="info.js"></script>
