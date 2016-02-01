@@ -1,5 +1,5 @@
 var UpdateInput = {
-  delay: 100,        // delay after keystroke before updating
+  delay: 0,        // delay after keystroke before updating
   preview: null,     // filled in by Init below
   buffer: null,      // filled in by Init below
   timeout: null,     // store setTimout id
@@ -47,7 +47,7 @@ var UpdateInput = {
   DrawMath: function () {
     this.preview.innerHTML = this.buffer.innerHTML;
     var theInput = this.oldtext.replace('`', '');
-    this.preview.setAttribute('data-input', this.oldTextClean);
+    this.preview.setAttribute('data-input', '(' + this.oldTextClean.replace('‸', '') + ')');
     this.mjRunning = false;
     this.timeoutRunning = false;
   },
