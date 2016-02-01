@@ -147,12 +147,12 @@ function deleteStuff(input, caret) {
 function performOperation(input, data, caret) {
   var inputValue = input.value;
   if (inputValue.length !== 1) {
-    appendInput(input, data.substring(9, 10), caret);
+    appendInput(input, data.substring(9, data.length), caret);
   } else {
     var calculatedResults = document.getElementsByClassName('calculatedResult');
     var calculatedResult = calculatedResults[calculatedResults.length - 2];
     appendInput(input, '(' + calculatedResult.getAttribute('data-input') + ')', caret);
-    appendInput(input, data.substring(9, 10), caret);
+    appendInput(input, data.substring(9, data.length), caret);
   }
 }
 function appendInput(input, data, caret) {
