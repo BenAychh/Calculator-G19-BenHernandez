@@ -77,6 +77,8 @@ function buttonClicked(data) {
     deleteStuff(input, caret);
   } else if (data.indexOf('operation') !== -1) {
     performOperation(input, data, caret);
+  } else if (data.indexOf('clear') !== -1) {
+    clearHistory();
   } else if (data != 'submit') {
     appendInput(input, data, caret);
   } else {
@@ -153,6 +155,13 @@ function performOperation(input, data, caret) {
     var calculatedResult = calculatedResults[calculatedResults.length - 2];
     appendInput(input, '(' + calculatedResult.getAttribute('data-input') + ')', caret);
     appendInput(input, data.substring(9, data.length), caret);
+  }
+}
+function clearHistory() {
+  var calcHistory = document.getElementById('calculationHistory');
+  var outputs = document.getElementsByClassName('outputWrapper');
+  for (var i = 0; i < outputs.length; i++) {
+    calcHistory.removeChild(outputs[0]);
   }
 }
 function appendInput(input, data, caret) {
