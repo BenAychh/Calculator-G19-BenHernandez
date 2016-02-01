@@ -3,6 +3,7 @@
 //var Graphing = require('./graphing.js')
 var graphingCanvas = document.getElementById('graphing');
 var infoCanvas = document.getElementById('info');
+var parser = math.parser();
 var grapher = new Graphing(graphingCanvas);
 var infoer = new Info(infoCanvas);
 var functions = {};
@@ -57,11 +58,7 @@ function removeLine(expression) {
 function calculate() {
   // Grab the input.
   var input = document.getElementById('expression');
-  input.disabled = true;
   UpdateInput.Update();
-  var problemNumber = input.getAttribute('data-problemnumber');
-  problemNumber++;
-  input.setAttribute('data-problemnumber', problemNumber);
   var inputValue = clean(input.value);
   // We are not defining a function so we need to convert things like f(2) to
   // their numerical value.
@@ -133,10 +130,7 @@ function createNewLine() {
   newOutputWrapper.appendChild(newCalculatedResult);
   calcHistory.appendChild(newOutputWrapper);
   calcHistory.scrollTop = calcHistory.scrollHeight;
-  // Put the focus back on the input bar.
-  input.disabled = false;
-  input.select();
-  input.focus();
+  input.value = '‸';
 }
 
 /**
@@ -147,6 +141,7 @@ function createNewLine() {
  */
 function clean(input) {
   input = input.replace(/\s/g, '');
+  input = input.replace('‸', '');
   input = input.toLowerCase();
   while (input.search(/[0-9][a-z]/g) !== -1) {
     var index = input.search(/[0-9][a-z]/g);
@@ -214,13 +209,19 @@ function setInput(caller) {
   var expressionToType = caller.getAttribute('data-input');
   var input = document.getElementById('expression');
   if (expressionToType) {
-    var inputText = input.value;
-    var startIndex = input.SelectionStart;
-    var endIndex = input.SelectionEnd;
-    var tempText = inputText + expressionToType;
-    input.value = tempText;
+    appendInput(input, expressionToType, '‸')
   }
-  input.focus();
+}
+function appendInput(input, data, caret) {
+  var newInputValue = input.value;
+  var caretPosition = newInputValue.indexOf(caret);
+  newInputValue = newInputValue.replace(caret, '');
+  input.value = newInputValue.substring(0, caretPosition) + data;
+  if (data.indexOf(caret) === -1 ) {
+    input.value += caret;
+  }
+  input.value += newInputValue.substring(caretPosition, newInputValue.length);
+  UpdateInput.Update();
 }
 /**
  * replaceFunctions - This replaces the function name with the actual function
