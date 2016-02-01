@@ -1,5 +1,5 @@
 var UpdateInput = {
-  delay: 0,        // delay after keystroke before updating
+  delay: 150,        // delay after keystroke before updating
   preview: null,     // filled in by Init below
   buffer: null,      // filled in by Init below
   timeout: null,     // store setTimout id
@@ -30,6 +30,7 @@ var UpdateInput = {
   CreatePreview: function() {
     this.timeout = null;
     if (this.mjRunning) {
+      setTimeout(this.callback, 150);
       return;
     }
     this.oldTextClean = document.getElementById("expression").value + '';
