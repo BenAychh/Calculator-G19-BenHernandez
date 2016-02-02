@@ -3,9 +3,11 @@
 //var Graphing = require('./graphing.js')
 var graphingCanvas = document.getElementById('graphing');
 var infoCanvas = document.getElementById('info');
+var tableCanvas = document.getElementById('tables');
 var parser = math.parser();
-var grapher = new Graphing(graphingCanvas);
-var infoer = new Info(infoCanvas);
+//var grapher = new Graphing(graphingCanvas);
+//var infoer = new Info(infoCanvas);
+var tabler = new Table(tableCanvas);
 var functions = {};
 // Colors in order of graphing sequence
 var colors = ['#0000ff', '#009900', '#990099', '#9fa700', '#e8184b'];

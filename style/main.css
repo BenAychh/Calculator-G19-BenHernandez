@@ -44,6 +44,10 @@ form input[type='text'] {
   position: absolute;
   left: 300px;
 }
+.tablesCanvases {
+  position: absolute;
+  left: 300px;
+}
 .button {
   display: inline;
   float: left;

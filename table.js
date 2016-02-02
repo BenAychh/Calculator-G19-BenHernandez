@@ -4,12 +4,14 @@ function Table(pCanvas) {
   var lines = {};
   var startNumber = 1;
   var delta = 1;
-  var drawHeader = function() {
+  drawHeader();
+  function drawHeader() {
     context.fillStyle = '#00b63e';
-    context.fillRect(0, 0, canvas.width, 50);
+    context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = '#000000';
+
   };
-  this.populateTable = function() {
+  this.repaint = function() {
     drawHeader();
   };
   this.addLine = function(name, equation, color) {
