@@ -9,7 +9,7 @@ function Table(pCanvas) {
   var rowHeight = 50;
   var font = 40;
   context.font = font + 'px Calibri';
-  var rightMargin = 0;
+  var rightMargin = 150;
   var tableWidth = canvas.width - rightMargin;
   var headerColor = '#989898';
   var headerFontColor = '#000000'
@@ -30,16 +30,32 @@ function Table(pCanvas) {
     delete lines[name];
     this.repaint();
   };
+  this.moveDown = function() {
+    startNumber += delta;
+    drawRows();
+  }
+  this.moveUp = function() {
+    startNumber -= delta;
+    drawRows();
+  }
+  this.setDelta = function(d) {
+    delta = d;
+    drawRows();
+  }
   function drawHeader() {
+    context.clearRect(0, 0, tableWidth, headerHeight);
     context.strokeStyle = '';
     context.fillStyle = headerColor;
     context.fillRect(0, 0, tableWidth, headerHeight);
     context.fillStyle = borderColor;
     var divideLines = tableWidth / maxFunctions;
+    // Header divider lines
     for (var j = 1; j < maxFunctions; j++) {
-      context.fillRect(j * divideLines - 1, 0, 3, tableWidth);
+      context.fillRect(j * divideLines - 1, 0, 3, headerHeight);
     }
+    // Header Bottom
     context.fillRect(0, headerHeight - 1, tableWidth, 3);
+    //Side Border
     context.fillRect(tableWidth - 3, 0, 3, canvas.height);
     var columnWidth = tableWidth / maxFunctions;
     var centers = [];
@@ -62,17 +78,24 @@ function Table(pCanvas) {
     }
   }
   function drawRows() {
+    context.clearRect(0, headerHeight, tableWidth, canvas.height - headerHeight);
     context.font = font + 'px Calibri';
     var numberOfRows = math.ceil((tableWidth - headerHeight) / rowHeight);
     var columnWidth = tableWidth / maxFunctions;
     var centers = [];
+    var divideLines = tableWidth / maxFunctions;
+    context.fillStyle = borderColor;
+    for (var h = 1; h < maxFunctions; h++) {
+      context.fillRect(h * divideLines - 1, headerHeight, 3, canvas.height - headerHeight);
+    }
     for (var i = columnWidth / 2; i < tableWidth; i += columnWidth) {
       centers.push(i);
     }
+    context.fillRect(tableWidth - 3, headerHeight, 3, canvas.height - headerHeight);
     context.fillStyle = xFontColor;
     var keys = Object.keys(lines);
     for (var j = 0; j <= numberOfRows; j++) {
-        var xNumber = j * delta + startNumber;
+        var xNumber = math.round(j * delta + startNumber,3);
         var dimensions = context.measureText(xNumber);
         var bottomOfRow = headerHeight + (j + 1) * rowHeight;
         var textTop = bottomOfRow - (rowHeight - font);
@@ -84,7 +107,7 @@ function Table(pCanvas) {
         for (var k = 0; k < keys.length; k++) {
           var equation = lines[keys[k]].equation;
           context.fillStyle = lines[keys[k]].color;
-          var functionNumber = math.eval(equation, {x: xNumber});
+          var functionNumber = math.round(math.eval(equation, {x: xNumber}), 3);
           dimensions = context.measureText(functionNumber);
           textLeft = centers[k + 1] - dimensions.width / 2;
           context.fillText(functionNumber, textLeft, textTop);

@@ -214,3 +214,14 @@ function removeClass(el, className) {
     el.className=el.className.replace(reg, ' ');
   }
 }
+//Special button for the graph/table toggle
+function toggleGraph(div) {
+  var card = document.getElementById('card');
+  if (hasClass(card, 'flipped')) {
+    removeClass(card, 'flipped');
+    div.innerHTML = "Switch To Table";
+  } else {
+    addClass(card, 'flipped');
+    div.innerHTML = "Switch To Graph";
+  }
+}
