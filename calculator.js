@@ -5,8 +5,8 @@ var graphingCanvas = document.getElementById('graphing');
 var infoCanvas = document.getElementById('info');
 var tableCanvas = document.getElementById('tables');
 var parser = math.parser();
-//var grapher = new Graphing(graphingCanvas);
-//var infoer = new Info(infoCanvas);
+var grapher = new Graphing(graphingCanvas);
+var infoer = new Info(infoCanvas);
 var tabler = new Table(tableCanvas);
 var functions = {};
 // Colors in order of graphing sequence
@@ -31,6 +31,7 @@ function graphbounds(expression) {
 function addLine(name, equation, color) {
   grapher.addLine(name, equation, color);
   infoer.addLine(name, equation, color);
+  tabler.addLine(name, equation, color);
 }
 
 /**
@@ -48,6 +49,7 @@ function removeLine(expression) {
   var functionToRemove = expression.substring(frStartIndex, frEndIndex);
   grapher.removeLine(functionToRemove);
   infoer.removeLine(functionToRemove);
+  tabler.removeLine(functionToRemove);
   return functionToRemove;
 }
 

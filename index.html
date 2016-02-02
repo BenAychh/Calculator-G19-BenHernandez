@@ -17,12 +17,16 @@
     <script src="beautifyinput.js"></script>
   </head>
   <body onresize="resizeCanvas()">
-    <!-- <div class="graphCanvases">
-      <canvas id="graphing"></canvas>
-      <canvas id="info"></canvas>
-    </div> -->
-    <div class="tablesCanvases">
-      <canvas id="tables"></canvas>
+    <div class="container">
+      <div id="card">
+        <div class="graphCanvases">
+          <canvas id="graphing"></canvas>
+          <canvas id="info"></canvas>
+        </div>
+        <div class="tablesCanvases">
+          <canvas id="tables"></canvas>
+        </div>
+      </div>
     </div>
     <div id="calculationHistory">
       <div id="buffer" class="output" style="visibility: hidden; position: absolute;"></div>
