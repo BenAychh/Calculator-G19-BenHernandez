@@ -107,7 +107,6 @@ function getMovement(input, data, caret) {
     regex = /[^(]/g;
     movement = -1;
     while (shouldSkip(inputValue[caretIndex + movement - 1], regex)) {
-      console.log(inputValue[caretIndex + movement - 1]);
       movement--;
     }
   } else if (direction === 'down') {
@@ -127,9 +126,10 @@ function deleteStuff(input, caret) {
   var inputValue = input.value;
   var caretIndex = inputValue.indexOf(caret);
   inputValue = inputValue.replace(caret, '');
-  if (inputValue[caretIndex - 1] === '(' || !!inputValue.match(/[a-z]/i)) {
+  if (inputValue[caretIndex - 1] === '(' ||
+      !!inputValue.match(/([a-z]|:|=)/i)) {
     var movement = -1;
-    regex = /[a-z]/i;
+    regex = /([a-z]|:|=)/i;
     while (shouldSkip(inputValue.charAt(caretIndex + movement - 1), regex)) {
       movement--;
     }
