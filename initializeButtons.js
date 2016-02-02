@@ -103,6 +103,19 @@ function getMovement(input, data, caret) {
       movement--;
     }
     while (shouldSkip(inputValue.charAt(caretIndex + movement - 1), regex));
+  } else if (direction === 'up') {
+    regex = /[^(]/g;
+    movement = -1;
+    while (shouldSkip(inputValue[caretIndex + movement - 1], regex)) {
+      console.log(inputValue[caretIndex + movement - 1]);
+      movement--;
+    }
+  } else if (direction === 'down') {
+    regex = /[^\)]/g;
+    movement = 1;
+    while (shouldSkip(inputValue[caretIndex + movement + 1], regex)) {
+      movement++;
+    }
   }
   inputValue = inputValue.replace(caret, '');
   inputValue = inputValue.substring(0, caretIndex + movement).replace(caret, '') +
@@ -176,7 +189,10 @@ function appendInput(input, data, caret) {
   UpdateInput.Update();
 }
 function shouldSkip(str, regex) {
-  return str.length === 1 && !!str.match(regex);
+  if (str) {
+    return (str.length === 1 && !!str.match(regex));
+  }
+  return false;
 }
 function hasClass(el, className) {
   if (el.classList)
