@@ -41,8 +41,6 @@ function addLine(name, equation, color) {
  * @return {undefined}
  */
 function removeLine(expression) {
-  // If we don't have the command removegraph being passed then we
-  // can assume we are getting the equation directly.
   var removegraphIndex = expression.indexOf('removegraph');
   var frStartIndex = expression.indexOf('(', removegraphIndex) + 1;
   var frEndIndex = expression.lastIndexOf(')');
@@ -111,17 +109,34 @@ function calculate() {
     });
   }
 }
+
+/**
+ * setCalculation - Puts the calculation into our calculation history
+ *
+ * @param  {html element} div          The element to be writing to.
+ * @param  {type} calculationResults   The results of our calculation.
+ * @return {undefined}
+ */
 function setCalculation(div, calculationResults) {
+  // If we are still formatting input then we shouldn't create the new line yet
+  // wait 150ms which is the max processing time
   if (UpdateInput.Running()) {
     setTimeout(function() {
       div.innerHTML = calculationResults;
       createNewLine()
     }, 150);
-  } else {
+  } // No processing is being done, we can just append and create the new line.
+  else {
     div.innerHTML = calculationResults;
     createNewLine();
   }
 }
+
+/**
+ * createNewLine - Creates a new calculation history line.
+ *
+ * @return {undefined}
+ */
 function createNewLine() {
   var input = document.getElementById('expression');
   var previews = document.getElementsByClassName("inputResult");
@@ -139,6 +154,7 @@ function createNewLine() {
   newOutputWrapper.appendChild(newCalculatedResult);
   calcHistory.appendChild(newOutputWrapper);
   calcHistory.scrollTop = calcHistory.scrollHeight;
+  // Clear the invisible input bar.
   input.value = '‸';
 }
 
@@ -149,9 +165,14 @@ function createNewLine() {
  * @return {string}       cleaned input.
  */
 function clean(input) {
+  // Remove spaces.
   input = input.replace(/\s/g, '');
+  // Remove the cursor location
   input = input.replace('‸', '');
+  // Make sure case isn't an issue.
   input = input.toLowerCase();
+  // Looks for numbers next to letters and puts a * sign in so 2f(2) is changed
+  // to 2*f(x) and our math library can process it correctly.
   while (input.search(/[0-9][a-z]/g) !== -1) {
     var index = input.search(/[0-9][a-z]/g);
     var beginning = input.substring(0, index + 1);
