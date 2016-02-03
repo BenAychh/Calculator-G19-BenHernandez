@@ -209,9 +209,9 @@ function evaluateFunctionsAtSpecificValues(expression) {
   // Put it all together.
   return beginning + evaluated + end;
 }
-function setInput(caller) {
+function setInput(caller, number) {
   var input = document.getElementById('expression');
-  if (!isNaN(caller)) {
+  if (number) {
     appendInput(input, caller, '‸');
   } else {
     var expressionToType = caller.getAttribute('data-input');

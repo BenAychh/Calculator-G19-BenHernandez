@@ -97,6 +97,8 @@ img {
   min-height: 25px;
   margin: 0 auto;
   display: block;
+  user-drag: none;
+  user-select: none;
 }
 
 #buttons {

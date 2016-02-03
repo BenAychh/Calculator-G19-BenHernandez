@@ -28,7 +28,9 @@ function Table(pCanvas) {
     if (x > 0 && y > headerHeight) {
       var screenRow = math.floor((y - headerHeight) / rowHeight);
       var screenColumn = math.floor(x / divideLines);
-      setInput( '(' + screenData[screenRow][screenColumn] + ')');
+      if (screenData[screenRow][screenColumn]) {
+        setInput( '(' + screenData[screenRow][screenColumn] + ')', true);
+      }
     }
   }
   this.repaint = function() {
