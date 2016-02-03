@@ -19,6 +19,27 @@ for (var i = 0; i < buttons.length; i++) {
   data = buttons[i].getAttribute('data-value');
   addKeyPress(data, buttons[i]);
 }
+var buttons = document.getElementsByClassName('arrowButton');
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = function() {
+    var data = this.getAttribute('data-value');
+    if (data.indexOf('special(') === -1 ) {
+      buttonClicked(this.getAttribute('data-value'));
+    } else {
+      var parameters = data.substring(7, data.length).split(',');
+      var buttonCommand = parameters[1].replace(')', '');
+      buttonClicked(buttonCommand);
+    }
+    var tempButton = this;
+    addClass(this, "active");
+    setTimeout(function() {
+      removeClass(tempButton, "active");
+    }, 100);
+  };
+  data = buttons[i].getAttribute('data-value');
+  console.log(data);
+  addKeyPress(data, buttons[i]);
+}
 function addKeyPress(data, button) {
   if (data.length === 1) {
     //console.log("length 1: ", data);
@@ -72,6 +93,7 @@ function buttonClicked(data) {
   var caret = '‸';
   var input = document.getElementById('expression');
   if (data.indexOf('move') !== -1) {
+    console.log(data);
     getMovement(input, data, caret);
   } else if (data.indexOf('backspace') !== -1) {
     deleteStuff(input, caret);
