@@ -172,10 +172,12 @@ function performOperation(input, data, caret) {
 }
 function clearHistory() {
   var calcHistory = document.getElementById('calculationHistory');
-  var outputs = document.getElementsByClassName('outputWrapper');
-  for (var i = 0; i < outputs.length; i++) {
-    calcHistory.removeChild(outputs[0]);
-  }
+  calcHistory.innerHTML = '<div id="buffer" class="output" style="visibility:' +
+      ' hidden; position: absolute;"></div><div id="precalculated"' +
+      ' class="calculatedResult" style="visibility: hidden; position:' +
+      ' absolute;"></div> <div class="outputWrapper"> <div class="inputResult' +
+      ' output outputBase" onclick="setInput(this)"></div><div class=' +
+      '"calculatedResult outputBase" onclick="setInput(this)"></div></div>'
 }
 function appendInput(input, data, caret) {
   var newInputValue = input.value;
