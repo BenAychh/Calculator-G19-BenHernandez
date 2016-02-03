@@ -17,6 +17,8 @@ function Table(pCanvas) {
   var borderColor = '#000000';
   var xFontColor = '#000000';
   var moveTimer;
+  var wheelDownCount = 0;
+  var wheelUpCount = 0;
   drawHeader();
   drawRows();
   canvas.addEventListener("mousedown", getPosition, false);
@@ -30,6 +32,22 @@ function Table(pCanvas) {
       var screenColumn = math.floor(x / divideLines);
       if (screenData[screenRow][screenColumn]) {
         setInput( '(' + screenData[screenRow][screenColumn] + ')', true);
+      }
+    }
+  }
+  canvas.addEventListener('mousewheel', scrollTable);
+  function scrollTable(e) {
+    if (e.wheelDelta < 0 ) {
+      wheelDownCount ++;
+      if (wheelDownCount > 10) {
+        wheelDownCount = 0;
+        intervalMoveDown();
+      }
+    } else if (e.wheelDelta > 0 ) {
+      wheelUpCount ++;
+      if (wheelUpCount > 10) {
+        wheelUpCount = 0;
+        intervalMoveUp();
       }
     }
   }
