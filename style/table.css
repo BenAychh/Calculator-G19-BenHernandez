@@ -9,6 +9,7 @@
   right: 0;
   position: absolute;
   width: 150px;
+  overflow: scroll;
 }
 .tableButton {
   text-align: center;

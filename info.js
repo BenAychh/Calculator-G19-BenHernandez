@@ -2,12 +2,18 @@ function Info(pCanvas) {
   var info = this;
   var ballRadius = 5;
   var canvas = pCanvas;
-  var xmin = -10;
-  var xmax = 10;
-  var ymin = -10;
-  var ymax = 10;
+  var windowInfo = {
+    xmin: -10,
+    xmax: 10,
+    ymin: -10,
+    ymax: 10,
+  };
+  var graphWidth = canvas.width - 150;
   var lines = {};
   var balls = {};
+  this.repaint = function() {
+    graphWidth = canvas.width - 150;
+  }
   this.addLine = function(name, equation, color) {
     lines[name] = {equation: equation, color: color};
   };
@@ -44,21 +50,23 @@ function Info(pCanvas) {
   function setText(x) {
     var lineKeys = Object.keys(lines);
     var top = canvas.height - 30 * (lineKeys.length - 1);
-    var xNumber = convertHPixelToNumber(x);
+    var xNumber = grapher.convertHPixelToNumber(x);
     lineKeys.forEach(function(info, key) {
       context.font = '20px calibri';
       context.fillStyle = lines[info].color;
       var yNumber = math.eval(lines[info].equation, {x: xNumber});
-      context.fillText('f(' + math.round(xNumber, 2) + ')', 10, top + 30 * key - 10);
-      context.fillText('= ' + math.round(yNumber, 2), 80, top + 30 * key - 10);
+      var functionVal = 'f(' + math.round(xNumber, 5) + ')';
+      var dimensions = context.measureText('f(0.00000)');
+      context.fillText(functionVal, 10, top + 30 * key - 10);
+      context.fillText('= ' + math.round(yNumber, 5), dimensions.width + 20, top + 30 * key - 10);
     });
   }
   function setBalls(x) {
     var lineKeys = Object.keys(lines);
     lineKeys.forEach(function(key) {
-      var xNumber = convertHPixelToNumber(x);
+      var xNumber = grapher.convertHPixelToNumber(x);
       var yNumber = math.eval(lines[key].equation, {x: xNumber});
-      var y = convertVNumberToPixel(yNumber);
+      var y = grapher.convertVNumberToPixel(yNumber);
       balls[key] = {x: x, y: y};
     });
   }
@@ -79,17 +87,5 @@ function Info(pCanvas) {
       context.clearRect(balls[key].x - ballRadius, balls[key].y - ballRadius,
         ballRadius * 2, ballRadius * 2);
     });
-  }
-  function convertHNumberToPixel(number) {
-    return Math.round((number - xmin) / (xmax - xmin) * canvas.width);
-  }
-  function convertHPixelToNumber(pixel) {
-    return ((xmax - xmin) / canvas.width * pixel) + xmin;
-  }
-  function convertVNumberToPixel(number) {
-    return Math.round((1 - (number - ymin) / (ymax - ymin)) * canvas.height);
-  }
-  function convertVPixelToNumber(pixel) {
-    return ((ymax - ymin) / canvas.height * pixel) + ymin;
   }
 }

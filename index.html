@@ -24,6 +24,32 @@
         <div class="graphCanvases">
           <canvas id="graphing"></canvas>
           <canvas id="info"></canvas>
+          <div id="graphInterface" class="tableInterface">
+            <div class="tableInputGroup">
+              <label for="xmin" class="tableLabel">xmin</label><br />
+              <input type="text" id="xmin" value="-10" onfocus="listener.stop_listening()" onkeyup="grapher.setWindow('xmin', this.value)" onblur="listener.listen()">
+            </div>
+            <div class="tableInputGroup">
+              <label for="xmax" class="tableLabel">xmax</label><br />
+              <input type="text" id="xmax" value="10" onfocus="listener.stop_listening()" onkeyup="grapher.setWindow('xmax', this.value)" onblur="listener.listen()">
+            </div>
+            <div class="tableInputGroup">
+              <label for="hgrid" class="tableLabel">hgrid</label><br />
+              <input type="text" id="hgrid" value="1" onfocus="listener.stop_listening()" onkeyup="grapher.setWindow('hgrid', this.value)" onblur="listener.listen()">
+            </div>
+            <div class="tableInputGroup">
+              <label for="ymin" class="tableLabel">ymin</label><br />
+              <input type="text" id="ymin" value="-10" onfocus="listener.stop_listening()" onkeyup="grapher.setWindow('ymin', this.value)" onblur="listener.listen()">
+            </div>
+            <div class="tableInputGroup">
+              <label for="ymax" class="tableLabel">ymax</label><br />
+              <input type="text" id="ymax" value="10" onfocus="listener.stop_listening()" onkeyup="grapher.setWindow('ymax', this.value)" onblur="listener.listen()">
+            </div>
+            <div class="tableInputGroup">
+              <label for="vgrid" class="tableLabel">vgrid</label><br />
+              <input type="text" id="vgrid" value="1" onfocus="listener.stop_listening()" onkeyup="grapher.setWindow('vgrid', this.value)" onblur="listener.listen()">
+            </div>
+          </div>
         </div>
         <div class="tablesCanvases">
           <canvas id="tables"></canvas>
