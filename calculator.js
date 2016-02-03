@@ -210,10 +210,14 @@ function evaluateFunctionsAtSpecificValues(expression) {
   return beginning + evaluated + end;
 }
 function setInput(caller) {
-  var expressionToType = caller.getAttribute('data-input');
   var input = document.getElementById('expression');
-  if (expressionToType) {
-    appendInput(input, expressionToType, '‸')
+  if (!isNaN(caller)) {
+    appendInput(input, caller, '‸');
+  } else {
+    var expressionToType = caller.getAttribute('data-input');
+    if (expressionToType) {
+      appendInput(input, expressionToType, '‸');
+    }
   }
 }
 function appendInput(input, data, caret) {
