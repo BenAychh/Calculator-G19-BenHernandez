@@ -109,7 +109,16 @@ form input[type='text'] {
   width: 50px;
   height: 25px;
   text-align: center;
-  margin: 5px;
+  margin: 3px;
+  box-sizing: border-box;
+  padding: 0;
+}
+.buttonSpacer {
+  float: left;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  margin: 3px;
   box-sizing: border-box;
   padding: 0;
 }
@@ -123,8 +132,9 @@ form input[type='text'] {
   width: 100px  ;
   height: 100px;
   clear:both;
+  top: 20px;
+  left: 35px;
   display: block;
-  border: 1px solid blue;
   box-sizing: border-box;
   position: relative;
 }

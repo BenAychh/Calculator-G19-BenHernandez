@@ -1,44 +1,28 @@
 var listener = new window.keypress.Listener();
 var buttons = document.getElementsByClassName('button');
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].onclick = function() {
-    var data = this.getAttribute('data-value');
-    if (data.indexOf('special(') === -1 ) {
-      buttonClicked(this.getAttribute('data-value'));
-    } else {
-      var parameters = data.substring(7, data.length).split(',');
-      var buttonCommand = parameters[1].replace(')', '');
-      buttonClicked(buttonCommand);
-    }
-    var tempButton = this;
-    addClass(this, "active");
-    setTimeout(function() {
-      removeClass(tempButton, "active");
-    }, 100);
-  };
-  data = buttons[i].getAttribute('data-value');
-  addKeyPress(data, buttons[i]);
-}
-var buttons = document.getElementsByClassName('arrowButton');
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].onclick = function() {
-    var data = this.getAttribute('data-value');
-    if (data.indexOf('special(') === -1 ) {
-      buttonClicked(this.getAttribute('data-value'));
-    } else {
-      var parameters = data.substring(7, data.length).split(',');
-      var buttonCommand = parameters[1].replace(')', '');
-      buttonClicked(buttonCommand);
-    }
-    var tempButton = this;
-    addClass(this, "active");
-    setTimeout(function() {
-      removeClass(tempButton, "active");
-    }, 100);
-  };
-  data = buttons[i].getAttribute('data-value');
-  console.log(data);
-  addKeyPress(data, buttons[i]);
+addOnClicks(buttons);
+buttons = document.getElementsByClassName('arrowButton');
+addOnClicks(buttons);
+function addOnClicks(button) {
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = function() {
+      var data = this.getAttribute('data-value');
+      if (data.indexOf('special(') === -1 ) {
+        buttonClicked(this.getAttribute('data-value'));
+      } else {
+        var parameters = data.substring(7, data.length).split(',');
+        var buttonCommand = parameters[1].replace(')', '');
+        buttonClicked(buttonCommand);
+      }
+      var tempButton = this;
+      addClass(this, "active");
+      setTimeout(function() {
+        removeClass(tempButton, "active");
+      }, 100);
+    };
+    data = buttons[i].getAttribute('data-value');
+    addKeyPress(data, buttons[i]);
+  }
 }
 function addKeyPress(data, button) {
   if (data.length === 1) {
@@ -93,7 +77,6 @@ function buttonClicked(data) {
   var caret = '‸';
   var input = document.getElementById('expression');
   if (data.indexOf('move') !== -1) {
-    console.log(data);
     getMovement(input, data, caret);
   } else if (data.indexOf('backspace') !== -1) {
     deleteStuff(input, caret);
@@ -243,9 +226,9 @@ function toggleGraph(div) {
   var card = document.getElementById('card');
   if (hasClass(card, 'flipped')) {
     removeClass(card, 'flipped');
-    div.innerHTML = "Switch To Table";
+    div.innerHTML = '<img src="images/table.png" alt="graph" />';
   } else {
     addClass(card, 'flipped');
-    div.innerHTML = "Switch To Graph";
+    div.innerHTML = '<img src="images/graph.png" alt="graph" />';
   }
 }

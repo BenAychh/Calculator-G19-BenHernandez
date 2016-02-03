@@ -90,8 +90,8 @@
         <div class="button" data-value=".">
           <img src="images/decimal.png" alt="." />
         </div>
-      </div>
-      <div class="buttonDivider">
+        <div class="buttonSpacer">
+        </div>
         <div class="button" data-value="operation+">
           <img src="images/plus.png" alt="plus" />
         </div>
@@ -165,6 +165,18 @@
         <div class="button" data-value="x">
           <img src="images/x.png" />
         </div>
+        <div class="button" data-value="special(=, :=)">
+          <img src="images/definedas.png" alt="defined as" />
+        </div>
+        <div class="button" data-value="f(x)">
+          <img src="images/fofx.png" alt="f(x)" />
+        </div>
+        <div class="button" data-value="g(x)">
+          <img src="images/gofx.png" alt="g(x)" />
+        </div>
+        <div class="button" data-value="h(x)">
+          <img src="images/hofx.png" alt="h(x)" />
+        </div>
         <div class="button" data-value="special(f,f(&#8248;))">
           <img src="images/fofx.png" alt="f(x)" />
         </div>
@@ -174,9 +186,6 @@
         <div class="button" data-value="special(h,h(&#8248;))">
           <img src="images/hofx.png" alt="h(x)" />
         </div>
-        <div class="button" data-value="special(=, :=)">
-          <img src="images/definedas.png" alt="defined as" />
-        </div>
       </div>
       <div class="buttonDivider">
         <div class="button" data-value="special(enter,submit)">
@@ -185,15 +194,15 @@
         <div class="button" data-value="special(clear, clear)">
           <img src="images/clear.png" alt="clear" />
         </div>
+        <div class="buttonSpacer" onclick="toggleGraph(this)">
+          <img src="images/table.png" alt="graph" />
+        </div>
         <div class="separate">
           <img src="images/dpad.png" alt="dpad" />
-          <div class="buttonLeft" data-value="special(left, move-left)"> </div>
-          <div class="buttonUp" data-value="special(up, move-up)"> </div>
-          <div class="buttonDown" data-value="special(down, move-down)"> </div>
-          <div class="buttonRight" data-value="special(right, move-right)"> </div>
-        </div>
-        <div id="graphToggleButton" onclick="toggleGraph(this)">
-          Switch To Table
+          <div class="buttonLeft arrowButton" data-value="special(left,move-left)"> </div>
+          <div class="buttonUp arrowButton" data-value="special(up,move-up)"> </div>
+          <div class="buttonDown arrowButton" data-value="special(down,move-down)"> </div>
+          <div class="buttonRight arrowButton" data-value="special(right,move-right)"> </div>
         </div>
       </div>
     </div>
