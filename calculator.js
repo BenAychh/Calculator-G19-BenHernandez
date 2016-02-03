@@ -10,7 +10,7 @@ var infoer = new Info(infoCanvas);
 var tabler = new Table(tableCanvas);
 var functions = {};
 // Colors in order of graphing sequence
-var colors = ['#0000ff', '#009900', '#990099', '#9fa700', '#e8184b'];
+var colors = {'f(x)': '#0000ff', 'g(x)': '#009900', 'h(x)': '#990099',};
 
 function graphbounds(expression) {
   var subString = expression.substring(12, expression.length - 1).split(',');
@@ -282,10 +282,10 @@ function specialProcessor(expression) {
   } else if (expression.indexOf(':=') !== -1) {
     // What color are we on?
     var keys = Object.keys(functions);
-    var color = colors[keys.length];
     // Split on our definition key"word".
     info = expression.split(':=');
     // Add the function to our global map and graph it.
+    var color = colors[info[0]];
     functions[info[0]] = info[1];
     addLine(info[0], functions[info[0]], color);
     return 'defined function ' + info[0] + ' := `' + functions[info[0]] + '`';
