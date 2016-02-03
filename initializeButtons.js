@@ -74,9 +74,10 @@ function addKeyPress(data, button) {
   }
 }
 function buttonClicked(data) {
+  console.log(data);
   var caret = '‸';
   var input = document.getElementById('expression');
-  if (data.indexOf('move') !== -1) {
+  if (data.indexOf('move-') !== -1) {
     getMovement(input, data, caret);
   } else if (data.indexOf('backspace') !== -1) {
     deleteStuff(input, caret);
@@ -185,9 +186,11 @@ function clearHistory() {
       '"calculatedResult outputBase" onclick="setInput(this)"></div></div>'
 }
 function appendInput(input, data, caret) {
+  console.log(data);
   var newInputValue = input.value;
   var caretPosition = newInputValue.indexOf(caret);
   newInputValue = newInputValue.replace(caret, '');
+  console.log(newInputValue);
   input.value = newInputValue.substring(0, caretPosition) + data;
   if (data.indexOf(caret) === -1 ) {
     input.value += caret;

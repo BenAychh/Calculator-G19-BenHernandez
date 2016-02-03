@@ -103,7 +103,12 @@ function calculate() {
     }
   } else {
     // Something special happen, display what we did.
-    setCalculation(calculated, special);
+    precalculated.innerHTML = special;
+    MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'precalculated']);
+    //After MathJax processing, display the beautified math.
+    MathJax.Hub.Queue(function() {
+      setCalculation(calculated, precalculated.innerHTML);
+    });
   }
 }
 function setCalculation(div, calculationResults) {
@@ -283,7 +288,7 @@ function specialProcessor(expression) {
     // Add the function to our global map and graph it.
     functions[info[0]] = info[1];
     addLine(info[0], functions[info[0]], color);
-    return 'defined function ' + info[0] + ' := ' + functions[info[0]];
+    return 'defined function ' + info[0] + ' := `' + functions[info[0]] + '`';
   }
   return '';
 }
