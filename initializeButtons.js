@@ -226,9 +226,14 @@ function toggleGraph(div) {
   var card = document.getElementById('card');
   if (hasClass(card, 'flipped')) {
     removeClass(card, 'flipped');
-    div.innerHTML = '<img src="images/table.png" alt="graph" />';
+    //div.innerHTML = '<img src="images/table.png" alt="graph" />';
   } else {
     addClass(card, 'flipped');
-    div.innerHTML = '<img src="images/graph.png" alt="graph" />';
+    //div.innerHTML = '<img src="images/graph.png" alt="graph" />';
+  }
+  if (hasClass(div, 'flipped')) {
+    removeClass(div, 'flipped');
+  } else {
+    addClass(div, 'flipped');
   }
 }

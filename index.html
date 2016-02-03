@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Calculator</title>
     <link rel="stylesheet" type="text/css" href="style/main.css">
+    <link rel="stylesheet" type="text/css" href="style/buttons.css">
+    <link rel="stylesheet" type="text/css" href="style/table.css">
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         showProcessingMessages: false,
@@ -178,13 +180,13 @@
           <img src="images/hofx.png" alt="h(x)" />
         </div>
         <div class="button" data-value="special(f,f(&#8248;))">
-          <img src="images/fofx.png" alt="f(x)" />
+          <img src="images/fofnumber.png" alt="f(#)" />
         </div>
         <div class="button" data-value="special(g,g(&#8248;))">
-          <img src="images/gofx.png" alt="g(x)" />
+          <img src="images/gofnumber.png" alt="g(#)" />
         </div>
         <div class="button" data-value="special(h,h(&#8248;))">
-          <img src="images/hofx.png" alt="h(x)" />
+          <img src="images/hofnumber.png" alt="h(#)" />
         </div>
       </div>
       <div class="buttonDivider">
@@ -194,8 +196,11 @@
         <div class="button" data-value="special(clear, clear)">
           <img src="images/clear.png" alt="clear" />
         </div>
-        <div class="buttonSpacer" onclick="toggleGraph(this)">
-          <img src="images/table.png" alt="graph" />
+        <div>
+          <div id="graphToggle" class="buttonSpacer" onclick="toggleGraph(this)">
+            <img src="images/table.png" alt="table" />
+            <img src="images/graph.png" alt="graph" class="graphToggleReverse"/>
+          </div>
         </div>
         <div class="separate">
           <img src="images/dpad.png" alt="dpad" />
