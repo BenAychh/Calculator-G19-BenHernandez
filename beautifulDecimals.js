@@ -13,40 +13,44 @@ function Beautify(number) {
   var num = 0;
   var den = 0;
   // Create a new fraction.
-  fraction = new Fraction(number);
-  // Store the results.
-  num = fraction.n;
-  den = fraction.d;
-  // If our fraction numerator is more than 10000, there is probably a better
-  // way to represent it.
-  if (num > 10000) {
-    // trying squaring everything and see if the resultant fraction is nicer.
-    fraction = new Fraction(Math.pow(number, 2));
-    // It was a square fraction, do some processing.
-    if (fraction.n < 10000) {
-      isSquared = true;
-      isNothing = false;
-      // Go back to the original decimals but know its square.
-      num = Math.sqrt(fraction.n);
-      den = Math.sqrt(fraction.d);
-    } // Squaring doesn't simplify either so go ahead and try diving pi.
-    else {
-      fraction = new Fraction(math.eval(number + '/pi'));
-      // pi works, use that.
+  if ((number + '').indexOf('i')=== -1) {
+    fraction = new Fraction(number);
+    // Store the results.
+    num = fraction.n;
+    den = fraction.d;
+    // If our fraction numerator is more than 10000, there is probably a better
+    // way to represent it.
+    if (num > 10000) {
+      // trying squaring everything and see if the resultant fraction is nicer.
+      fraction = new Fraction(Math.pow(number, 2));
+      // It was a square fraction, do some processing.
       if (fraction.n < 10000) {
+        isSquared = true;
         isNothing = false;
-        isPi = true;
-        num = fraction.n;
-        den = fraction.d;
-      } // there is no way to make this number any prettier.
+        // Go back to the original decimals but know its square.
+        num = Math.sqrt(fraction.n);
+        den = Math.sqrt(fraction.d);
+      } // Squaring doesn't simplify either so go ahead and try diving pi.
       else {
-        num = number;
+        fraction = new Fraction(math.eval(number + '/pi'));
+        // pi works, use that.
+        if (fraction.n < 10000) {
+          isNothing = false;
+          isPi = true;
+          num = fraction.n;
+          den = fraction.d;
+        } // there is no way to make this number any prettier.
+        else {
+          num = number;
+        }
       }
+    } // This can be represented nicely with a simple fraction.
+    else {
+      isFraction = true;
+      isNothing = false;
     }
-  } // This can be represented nicely with a simple fraction.
-  else {
-    isFraction = true;
-    isNothing = false;
+  } else {
+    num = number;
   }
 
   /**
