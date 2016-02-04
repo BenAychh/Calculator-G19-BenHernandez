@@ -93,7 +93,7 @@ function Table(pCanvas) {
    * @return {undefined}
    */
   this.repaint = function() {
-    tableWidth = canvas.width - rightMargin;
+    tableWidth = canvas.width - 150;
     drawHeader();
     drawRows();
   };
@@ -297,12 +297,12 @@ function Table(pCanvas) {
         dimensions = context.measureText(functionNumber.toLocaleString());
         // We are sizing the string to fit the column, to min left should be
         // the column start (don't want overflow).
-        if (dimensions.width < divideLines) {
+        if (dimensions.width < columnWidth) {
           textLeft = centers[k + 1] - dimensions.width / 2;
         } else {
-          textLeft = divideLines * (k + 1);
+          textLeft = columnWidth * (k + 1);
         }
-        context.fillText(functionNumber.toLocaleString(), textLeft, textTop, divideLines);
+        context.fillText(functionNumber.toLocaleString(), textLeft, textTop, columnWidth);
       }
       screenData.push(row);
     }
