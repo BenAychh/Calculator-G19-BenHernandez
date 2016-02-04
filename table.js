@@ -5,7 +5,7 @@ function Table(pCanvas) {
   // An array of the cell values
   var screenData = [];
   // So we know where to start the table.
-  var startNumber = 1;
+  var startNumber = 0;
   // How much the table should move up by.
   var delta = 1;
   // So we know how to divide the table.
@@ -288,12 +288,8 @@ function Table(pCanvas) {
         var equation = lines[keys[k]].equation;
         context.fillStyle = lines[keys[k]].color;
         // Evaluate the function at this row's x value.
-        var functionNumber = math.eval(equation, {x: xNumber});
+        var functionNumber = math.format(math.eval(equation, {x: xNumber}), 8);
         row.push(functionNumber);
-        // We can't round if it isn't a number or infinite
-        if (!isNaN(functionNumber) && isFinite(functionNumber)) {
-          functionNumber = math.round(functionNumber, 4);
-        }
         dimensions = context.measureText(functionNumber.toLocaleString());
         // We are sizing the string to fit the column, to min left should be
         // the column start (don't want overflow).

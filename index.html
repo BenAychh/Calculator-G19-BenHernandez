@@ -61,12 +61,12 @@
               <img src="images/downarrow.png" alt="down" />
             </div>
             <div class="tableInputGroup">
-              <label for="tableDelta" class="tableLabel">delta</label><br />
-              <input type="text" id="tableDelta" value="" onfocus="listener.stop_listening()" onkeyup="tabler.setDelta(this.value)" onblur="listener.listen()">
+              <label for="tableDelta" class="tableLabel">start</label><br />
+              <input type="text" id="tableStart" value="0" onfocus="listener.stop_listening()" onkeyup="tabler.setStart(this.value)" onblur="listener.listen()">
             </div>
             <div class="tableInputGroup">
-              <label for="tableDelta" class="tableLabel">start</label><br />
-              <input type="text" id="tableStart" value="" onfocus="listener.stop_listening()" onkeyup="tabler.setStart(this.value)" onblur="listener.listen()">
+              <label for="tableDelta" class="tableLabel">delta</label><br />
+              <input type="text" id="tableDelta" value="1" onfocus="listener.stop_listening()" onkeyup="tabler.setDelta(this.value)" onblur="listener.listen()">
             </div>
           </div>
         </div>

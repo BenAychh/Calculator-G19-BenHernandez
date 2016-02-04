@@ -30,6 +30,7 @@
   margin: 10px 0;
 }
 .tableInterface input{
+  text-align: center;
   width: 100px;
   right: 0;
   font-size: 25px;
