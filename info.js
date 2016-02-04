@@ -22,7 +22,7 @@ function Info(pCanvas) {
   };
 
   /**
-   * addLine - Adds an column to the table.
+   * addLine - Adds an equation to be infoed.
    *
    * @param  {string} name     the name (i.e. f(x))
    * @param  {string} equation the equation (i.e. 2x)
@@ -34,7 +34,7 @@ function Info(pCanvas) {
   };
 
   /**
-   * this - Removes a column from the table
+   * this - Removes an info line from the info pane.
    *
    * @param  {string} name the name of the function to remove (i.e. f(x))
    * @return {type}
