@@ -50,6 +50,10 @@ function Info(pCanvas) {
   canvas.addEventListener('mousemove', function(e) {
     info.mouseLocation(e.clientX);
   });
+  canvas.addEventListener('mouseout', function(e) {
+    clearText();
+    clearBalls();
+  });
   /**
    * mouseLocation - Mouse listener for the canvas
    *
