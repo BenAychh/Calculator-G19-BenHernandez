@@ -1,3 +1,8 @@
+##Production Link:##
+http://benaychh.github.io/Calculator-G19-BenHernandez/
+
+Quick instruction video: http://quick.as/qverh99p4
+
 # Ben Hernandez's Front-End Project Proposal
 
 ## Users and Uses
